@@ -6,7 +6,7 @@ public class Main {
 
         LoadManager lm = new LoadManager();
 
-        HashMap<String, Vare> items = lm.loadItems("data/varer.csv", true);
+        HashMap<String, Vare> items = lm.loadItems();
         System.out.println();
     }
 }

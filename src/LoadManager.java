@@ -1,12 +1,29 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class LoadManager {
 
-    public HashMap<String, Vare> loadItems(String path, boolean skipHeader){
+    private HashMap<String, Vare> itemData = new HashMap<>();
+
+    public HashMap<String, Vare> loadItems() {
+        return readData("data/varer.csv", true);
+    }
+
+    public HashMap<String, Vare> loadDiscounts() {
+        HashMap<String, Vare> discountData = readData("data/tilbud.csv", true);
+
+        for (Vare vare : discountData.values()) {
+            String checkId = vare.getId();
+
+            itemData.get(checkId).setDiscounted(true);
+            itemData.get(checkId).setDiscountPrice(vare.getPrice());
+        }
+        return itemData;
+    }
+
+    public HashMap<String, Vare> readData(String path, boolean skipHeader){
         File file = new File(path);
         HashMap<String, Vare> data = new HashMap();
         try {
@@ -19,7 +36,7 @@ public class LoadManager {
                 String[] values = s.split(";");
                 String itemId = (values[0]);
 
-                Vare vare = convertToVare(values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+                Vare vare = convertToVare(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
 
                 data.put(itemId, vare);
             }
@@ -29,7 +46,7 @@ public class LoadManager {
         return data;
     }
 
-    private Vare convertToVare(String name, String priceDate, String price, String isBudgetBrand, String quantity, String unit, String isWeighted, String isBio, String isAvailable) {
+    private Vare convertToVare(String id, String name, String priceDate, String price, String isBudgetBrand, String quantity, String unit, String isWeighted, String isBio, String isAvailable) {
         double fPrice = Double.parseDouble(price);
         boolean fIsBudgetBrand = Boolean.parseBoolean(isBudgetBrand);
         double fQuantity = Double.parseDouble(quantity);
@@ -37,6 +54,7 @@ public class LoadManager {
         boolean fIsBio = Boolean.parseBoolean(isBio);
         boolean fIsAvailable = Boolean.parseBoolean(isAvailable);
 
-        return new Vare(name, priceDate, fPrice, fIsBudgetBrand, fQuantity, unit, fIsWeighted, fIsBio, fIsAvailable);
+        return new Vare(id, name, priceDate, fPrice, fIsBudgetBrand, fQuantity, unit, fIsWeighted, fIsBio, fIsAvailable);
     }
+
 }
