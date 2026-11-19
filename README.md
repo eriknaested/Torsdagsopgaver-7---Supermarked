@@ -1,1 +1,3 @@
-# Torsdagsopgaver-7---Supermarked
+Erik Næsted
+
+erna1000@stud.ek.dk
