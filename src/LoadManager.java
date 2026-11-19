@@ -5,27 +5,22 @@ import java.util.Scanner;
 
 public class LoadManager {
 
-    private HashMap<String, Vare> itemData = new HashMap<>();
+    private HashMap<String, Vare> allItems = new HashMap<>();
+    private HashMap<String, Vare> discountedItems = new HashMap<>();
 
     public HashMap<String, Vare> loadItems() {
-        return readData("data/varer.csv", true);
+        allItems = readData("data/varer.csv", true);
+        return allItems;
     }
 
     public HashMap<String, Vare> loadDiscounts() {
-        HashMap<String, Vare> discountData = readData("data/tilbud.csv", true);
-
-        for (Vare vare : discountData.values()) {
-            String checkId = vare.getId();
-
-            itemData.get(checkId).setDiscounted(true);
-            itemData.get(checkId).setDiscountPrice(vare.getPrice());
-        }
-        return itemData;
+        discountedItems = readData("data/tilbud.csv", true);
+        return discountedItems;
     }
 
-    public HashMap<String, Vare> readData(String path, boolean skipHeader){
+    private HashMap<String, Vare> readData(String path, boolean skipHeader){
         File file = new File(path);
-        HashMap<String, Vare> data = new HashMap();
+        HashMap<String, Vare> data = new HashMap<>();
         try {
             Scanner scan = new Scanner(file);
             if (skipHeader) {
@@ -56,5 +51,4 @@ public class LoadManager {
 
         return new Vare(id, name, priceDate, fPrice, fIsBudgetBrand, fQuantity, unit, fIsWeighted, fIsBio, fIsAvailable);
     }
-
 }

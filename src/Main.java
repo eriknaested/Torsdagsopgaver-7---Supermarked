@@ -1,12 +1,13 @@
-import java.util.HashMap;
+import java.util.Collection;
 
 public class Main {
 
     public static void main (String[] args) {
 
-        LoadManager lm = new LoadManager();
+        CashRegister cr = new CashRegister();
 
-        HashMap<String, Vare> items = lm.loadItems();
-        System.out.println();
+        Collection<Vare> basket = cr.createBasket();
+
+        cr.printReceipt(basket);
     }
 }

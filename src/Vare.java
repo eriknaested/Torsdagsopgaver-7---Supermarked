@@ -10,9 +10,6 @@ public class Vare {
     private boolean isWeighted;
     private boolean isBio;
     private boolean isAvailable;
-    private double discountPrice;
-    private boolean isDiscounted;
-    private LoadManager lm;
 
     public Vare(String id, String name, String priceDate, double price, boolean isBudgetBrand, double quantity, String unit, boolean isWeighted, boolean isBio, boolean isAvailable) {
         this.id = id;
@@ -25,37 +22,52 @@ public class Vare {
         this.isWeighted = isWeighted;
         this.isBio = isBio;
         this.isAvailable = isAvailable;
-        this.discountPrice = price;
-        this.isAvailable = false;
     }
 
     @Override
     public String toString() {
-        return name + " " + price + " kr.";
+        return super.toString();
     }
 
-    public void setDiscountPrice(double discountPrice) {
-        this.discountPrice = discountPrice;
-    }
-
-    public void setDiscounted(boolean discounted) {
-        isDiscounted = discounted;
+    public String getName() {
+        String[] values = name.split(",");
+        String formattedName = values[0];
+        return formattedName;
     }
 
     public String getId() {
         return id;
     }
 
+    public String getPriceDate() {
+        return priceDate;
+    }
+
     public double getPrice() {
         return price;
     }
 
-    public boolean isDiscounted() {
-        return isDiscounted;
+    public boolean isBudgetBrand() {
+        return isBudgetBrand;
     }
 
-    public double getDiscountPrice() {
-        return discountPrice;
+    public double getQuantity() {
+        return quantity;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public boolean isWeighted() {
+        return isWeighted;
+    }
+
+    public boolean isBio() {
+        return isBio;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
 }
