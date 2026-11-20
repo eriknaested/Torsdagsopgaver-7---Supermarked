@@ -69,17 +69,17 @@ public class CashRegister {
             double normalPrice = allItems.get(id).getPrice();
             double totalPrice = normalPrice * count;
             System.out.println(name);
-            System.out.printf("%d x %.2f kr. = %.2f kr.%n", count, normalPrice, totalPrice);
+            System.out.printf("  %d x %.2f kr. = %.2f kr.%n", count, normalPrice, totalPrice);
             if (isDiscounted(id)) {
                 double discount = (price - normalPrice) * count;
-                System.out.printf("Discount: %.2f kr.%n", discount);
+                System.out.printf("  Discount: %.2f kr.%n", discount);
             }
-            System.out.printf("Price after discount: %.2f %n", price * count);
+            System.out.printf("  Price after discount: %.2f %n", price * count);
         }
         double total = calculateTotal(duplicateCounter);
         System.out.printf("TOTAL: %.2f kr.%n", total);
         double taxPaid = getTax(total);
-        System.out.printf("VAT (25%%) %.2f kr.%n", taxPaid);
+        System.out.printf("VAT (25%%): %.2f kr.%n", taxPaid);
         System.out.println("============");
     }
 }
